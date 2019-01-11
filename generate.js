@@ -46,20 +46,17 @@ for(let letter in numbers){
     {   
         //store the number in a variable
         let num = numbers[letter][i];
-        //create the column, then put another container in it for centering
-        //additionally add the number-contrainer class.
+        //create the column, then add the number-container class
         let col = newElement("div", "col");
-        let div = newElement("div", "number-position");
         col.classList.add("number-container");
 
         //set the text equal to the number.
         let text = document.createTextNode(num.toString());
 
         //have the innermost container add the text
-        div.appendChild(text);
+        col.appendChild(text);
         
-        //have the column add the innermost div
-        col.appendChild(div);
+       
         
         //add an event listener to the column to change its style when clicked
         col.addEventListener("click", NumberClick);
