@@ -1,0 +1,33 @@
+
+.red{
+    background-color:red;
+    color:white;
+}
+
+.number-container{
+    border:1px solid black;
+    border-collapse: collapse;
+    font-family: "monospace";
+}
+
+.number-position{
+    font-size:42px;
+    text-align: center;
+    line-height: 325%;
+}
+#wrapper{
+    width:98%;
+    margin-left:1%;
+    height:100%;
+    margin-top: 2%;
+}
+
+.header{
+    background-color: #2255AA;
+    color:white;
+    text-align: center;
+    font-weight: bold;
+    font-size:56px;
+    padding: 2% 5%;
+    font-family: "Helvetica";
+}
