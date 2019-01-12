@@ -4,6 +4,12 @@
     color:white;
 }
 
+.purple{
+    background-color:purple;
+    color:white;
+}
+
+
 .number-container{
     border:1px solid black;
     border-collapse: collapse;
