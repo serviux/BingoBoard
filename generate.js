@@ -7,12 +7,35 @@ let numbers = {
     "O" : [61,62,63,64,65,66,67,68,69,70,71,72,73,74,75]
 };
 
-//checks to see if the classlist contains the class red
-//if it does it removes it otherwise it adds it.
+
+//makes the website interactive by allowing you to click the called numbers
+//when you click on the number it turns purple for being the most recently called number
+//after it becomes red when the next number is pressed. if a mistake is made
+///the button can simply be pressed again and it coloration will disappear
+let lastCall;
 let NumberClick = function(){
-    let containsRed = this.classList.contains("red")
-    containsRed ? this.classList.remove("red") : this.classList.add("red");
-   
+    let containsColor = this.classList.contains("red") || this.classList.contains("purple");
+    
+    if(containsColor && lastCall == null)
+    {
+        this.classList.remove("purple");
+        this.classList.remove("red");
+    }
+    else if(containsColor && lastCall != null)
+    {
+        this.classList.remove("purple");
+        this.classList.remove("red"); 
+        lastCall = null;
+    }
+     else if(!containsColor && lastCall != null) {
+        lastCall.classList.add("red");
+        this.classList.add("purple");
+        lastCall.classList.remove("purple");
+        lastCall = this;
+    } else{
+        this.classList.add("purple");
+        lastCall = this;
+    }
 } 
 
 //creates a new element and adds a css class to it
