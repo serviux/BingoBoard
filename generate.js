@@ -91,4 +91,18 @@ for(let letter in numbers){
     wrapper.appendChild(node);
 }
 
+function resetNumbers(){
+    //selects all the divs with the class red
+    let numbers = document.querySelectorAll("div.number-container");
+    console.log(numbers);
+    //removes the class from them.
+    for(i=0; i < numbers.length; i++)
+    {
+        
+        numbers[i].classList.remove("red");
+        numbers[i].classList.remove("purple");
+    }
+    lastCall = null;
+}
+
 
