@@ -24,8 +24,9 @@ let NumberClick = function(){
     else if(containsColor && lastCall != null)
     {
         this.classList.remove("purple");
+        lastCall = this.classList.contains("red") ? lastCall : null;
         this.classList.remove("red"); 
-        lastCall = null;
+
     }
      else if(!containsColor && lastCall != null) {
         lastCall.classList.add("red");
