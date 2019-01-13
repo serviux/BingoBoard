@@ -15,16 +15,21 @@ let numbers = {
 let lastCall;
 let NumberClick = function(){
     let containsColor = this.classList.contains("red") || this.classList.contains("purple");
-    
+    console.log(lastCall);
     if(containsColor && lastCall == null)
     {
         this.classList.remove("purple");
         this.classList.remove("red");
     }
+    else if(containsColor && lastCall === this)
+    {
+        
+    }
     else if(containsColor && lastCall != null)
     {
         this.classList.remove("purple");
         this.classList.remove("red"); 
+        lastCall.classList.add("purple");
         lastCall = null;
     }
      else if(!containsColor && lastCall != null) {
