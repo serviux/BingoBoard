@@ -12,11 +12,10 @@ let callStack = []
 
 
 
-function find(n1){
+function find(n1) {
     let i = 0;
-    for(; i < callStack.length; i++){
-        if(n1 === callStack[i] )
-        {
+    for (; i < callStack.length; i++) {
+        if (n1 === callStack[i]) {
             return i
         }
     }
@@ -30,26 +29,22 @@ function CalledNumber() {
     if (callStack.length === 0) {
         this.classList.add("purple");
         callStack.push(this.innerHTML);
-    } else if(hasColor) 
-    {
-       let i = find(this.innerHTML)
-       callStack.splice(i, 1)
-       let top = callStack.length -1;
-       if(top >= 0)
-       {
-        let old = _getNumber(callStack[top])
-        old.classList.remove("red")
-        old.classList.add("purple")
-       }
-       this.classList.remove("red")
-       this.classList.remove("purple")
-       
-    }
-    
-    else {
-        
+    } else if (hasColor) {
+        let i = find(this.innerHTML)
+        callStack.splice(i, 1)
+        let top = callStack.length - 1;
+        if (top >= 0) {
+            let old = _getNumber(callStack[top])
+            old.classList.remove("red")
+            old.classList.add("purple")
+        }
+        this.classList.remove("red")
+        this.classList.remove("purple")
+
+    } else {
+
         this.classList.add("purple");
-        let top = callStack.length -1
+        let top = callStack.length - 1
         let old = _getNumber(callStack[top])
         old.classList.add("red")
         old.classList.remove("purple")
@@ -58,23 +53,36 @@ function CalledNumber() {
     store_in_session()
 }
 //Stores callstack in session variable
-function store_in_session(){
+function store_in_session() {
     sessionStorage.setItem(key, callStack)
 }
-function get_from_session(){
-    return sessionStorage.getItem(key)
+
+function get_from_session() {
+    debugger;
+    try {
+        let items = sessionStorage.getItem(key)
+        items = items.split(",")
+        return items
+    } catch (err) {
+        console.error("No items found")
+    }
+    return null
 }
-function remove_from_session(){
+
+function remove_from_session() {
     sessionStorage.removeItem(key)
 }
 
 function undo() {
+    debugger;
     let top = callStack.length - 1;
-    callStack[top].classList.remove("purple")
+    let el = _getNumber(callStack[top])
+    el.classList.remove("purple")
     callStack.splice(top, 1)
     top = callStack.length - 1;
-    callStack[top].classList.add("purple")
-    callStack[top].classList.remove("red")
+    el = _getNumber(callStack[top])
+    el.classList.add("purple")
+    el.classList.remove("red")
 }
 
 //creates a new element and adds a css class to it
@@ -84,7 +92,7 @@ function _newElement(element, cssClass) {
     return x;
 }
 
-function _getNumber(num){
+function _getNumber(num) {
     return document.querySelector("#n" + num)
 }
 
@@ -111,7 +119,7 @@ function create_board() {
             let num = numbers[letter][i];
             //create the column, then add the number-container class
             let col = _newElement("div", "col");
-            col.id = "n"+ numbers[letter][i];
+            col.id = "n" + numbers[letter][i];
             col.classList.add("number-container");
 
             //set the text equal to the number.
@@ -133,17 +141,18 @@ function create_board() {
     }
 }
 
-function board_reload(){
+function board_reload() {
     debugger;
     let called = get_from_session()
-    if(called === null || called.length === 0) throw RangeError("No numbers where called")
-    remove_from_session()
-    for(let i in called){
+    if (called === null || called.length === 0) throw RangeError("No numbers where called")
+    var event = new Event('reload')
+    for (let i of called) {
         let el = _getNumber(i)
-        el.onclick()
+        el.addEventListener('reload', CalledNumber)
+        el.dispatchEvent(event)
 
     }
-    
+
 }
 
 
@@ -153,7 +162,6 @@ function resetNumbers() {
     console.log(numbers);
     //removes the class from them.
     for (i = 0; i < numbers.length; i++) {
-
         numbers[i].classList.remove("red");
         numbers[i].classList.remove("purple");
     }
